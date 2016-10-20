@@ -20,16 +20,28 @@ public class Stack {
   public void push(char c) {
     list.push(c);
     size++;
-    emptyCheck();
+    empty = false;
   }
 
   public Character pop() {
-    if (size == 0) {
-      throw new IndexOutOfBoundsException("Error: Popped off empty stack.");
+    if (size <= 0) {
+      throw new IndexOutOfBoundsException("Error: Popped off an empty stack.");
     }
     size--;
     emptyCheck();
     return list.pop();
+  }
+
+  public int size() {
+    return size;
+  }
+
+  public boolean isEmpty() {
+    return empty;
+  }
+  
+  public LinkedList toLinkedList() {
+    return list;
   }
 
   /**
@@ -38,8 +50,7 @@ public class Stack {
   private void emptyCheck() {
     if (size == 0) {
       empty = true;
-    }
-    else {
+    } else {
       empty = false;
     }
   }
