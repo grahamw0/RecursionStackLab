@@ -10,22 +10,25 @@ package postfix;
 public class PostCalc {
   private Stack stack;
   private String expression;
-  
+
   public PostCalc(String expression) {
     this.expression = expression;
-    System.out.println(validate());  // TODO: Remove this test line
+    if(!validate()) {
+      // throw exception
+    }
+    System.out.println(validate()); // TODO: Remove this test line
+    compute();
   }
-  
+
   private boolean validate() {
     String[] array = expression.trim().split("\\s+");
     int counter = 0;
     boolean wentNeg = false;
-    
-    for(int i = 0; i < array.length; i++) {
-      if(array[i].matches("^-?\\d+$")) {
+
+    for (int i = 0; i < array.length; i++) {
+      if (array[i].matches("^-?\\d+$")) {
         counter++;
-      }
-      else if(array[i].matches("^[+-/*//]$")) {
+      } else if (array[i].matches("^[+-/*//]$")) {
         counter--;
         if (counter < 0)
           wentNeg = true;
@@ -33,17 +36,20 @@ public class PostCalc {
         if (counter < 0)
           wentNeg = true;
         counter++;
-      }
-      else {
+      } else
         return false;
-      }
     }
     if (counter == 1 && !wentNeg)
       return true;
     else
       return false;
+
+  }
+
+  public void compute() {
+    String[] array = expression.trim().split("\\s+");
     
   }
-  
-  
+
+
 }
