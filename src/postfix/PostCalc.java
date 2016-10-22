@@ -48,6 +48,41 @@ public class PostCalc {
 
   public void compute() {
     String[] array = expression.trim().split("\\s+");
+    Stack stack = new Stack();
+    
+    for(int i = 0; i < array.length; i++) {
+      if(array[i].matches("^-?\\d+$")) {  // Number
+        stack.push(array[i]);
+      }
+      else {  // Operator
+        int result;
+        int first = Integer.valueOf(stack.pop());
+        int second = Integer.valueOf(stack.pop());
+        switch (array[i]) {
+          case "+":
+            result = second + first;
+            stack.push(Integer.toString(result));
+            break;
+          case "-":
+            result = second - first;
+            stack.push(Integer.toString(result));
+            break;
+          case "*":
+            result = second * first;
+            stack.push(Integer.toString(result));
+            break;
+          case "/":
+            result = second / first;
+            stack.push(Integer.toString(result));
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
+    System.out.println(stack.pop());
+    
     
   }
 
