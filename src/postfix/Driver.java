@@ -14,7 +14,7 @@ public class Driver {
    */
   public static void main(String[] args) {
     //PostCalc test = new PostCalc("3 2 *");
-    Infix test = new Infix("(((2 + 3))");
+    InfixCalc test = new InfixCalc("(((2 + 3))");
     
   }
 
