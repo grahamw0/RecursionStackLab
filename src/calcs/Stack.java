@@ -1,4 +1,4 @@
-package postfix;
+package calcs;
 
 import java.util.LinkedList;
 
@@ -30,6 +30,13 @@ public class Stack {
     size--;
     emptyCheck();
     return list.pop();
+  }
+  
+  public String peek() {
+    if (size <= 0)
+      return null;
+    else
+      return list.peek();
   }
 
   public int size() {
