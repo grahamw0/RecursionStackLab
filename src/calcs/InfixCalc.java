@@ -70,6 +70,7 @@ public class InfixCalc {
       }
     }
     while (!opStack.isEmpty()) {
+      //TODO: Determine whether this check is necessary after opStack.pop(); on line 55
       if(opStack.peek().equals("(")) {
         opStack.pop();
       }
