@@ -7,7 +7,7 @@ import java.util.LinkedList;
  *
  */
 public class Stack {
-  private LinkedList<Character> list;
+  private LinkedList<String> list;
   private int size;
   private boolean empty;
 
@@ -17,13 +17,13 @@ public class Stack {
     empty = true;
   }
 
-  public void push(char c) {
+  public void push(String c) {
     list.push(c);
     size++;
     empty = false;
   }
 
-  public Character pop() {
+  public String pop() {
     if (size <= 0) {
       throw new IndexOutOfBoundsException("Error: Popped off an empty stack.");
     }
