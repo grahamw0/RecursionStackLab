@@ -31,6 +31,13 @@ public class Stack {
     emptyCheck();
     return list.pop();
   }
+  
+  public String peek() {
+    if (size <= 0)
+      return null;
+    else
+      return list.peek();
+  }
 
   public int size() {
     return size;
