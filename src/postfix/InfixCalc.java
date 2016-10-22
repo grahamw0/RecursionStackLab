@@ -8,7 +8,7 @@ package postfix;
  *
  * @author Will
  */
-public class Infix {
+public class InfixCalc {
   private String expression;
   private String postExpression;
 
@@ -16,7 +16,7 @@ public class Infix {
    * @param stack
    * @param expression
    */
-  public Infix(String expression) {
+  public InfixCalc(String expression) {
     this.expression = expression;
     this.postExpression = "";
     validate();
