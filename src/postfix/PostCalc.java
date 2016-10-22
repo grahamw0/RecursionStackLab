@@ -17,7 +17,7 @@ public class PostCalc {
     compute();
   }
 
-  private boolean validate() {
+  private void validate() {
     String[] array = expression.trim().split("\\s+");
     int counter = 0;
     boolean wentNeg = false;
@@ -34,11 +34,9 @@ public class PostCalc {
           wentNeg = true;
         counter++;
       } else
-        return false;
+        throw new ArithmeticException("Invalid Postfix syntax.");
     }
-    if (counter == 1 && !wentNeg)
-      return true;
-    else
+    if (counter != 1 && wentNeg)
       throw new ArithmeticException("Invalid Postfix syntax.");
 
   }
