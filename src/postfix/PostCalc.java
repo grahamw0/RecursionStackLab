@@ -13,10 +13,7 @@ public class PostCalc {
 
   public PostCalc(String expression) {
     this.expression = expression;
-    if(!validate()) {
-      // throw exception
-    }
-    System.out.println(validate()); // TODO: Remove this test line
+    validate();
     compute();
   }
 
@@ -42,7 +39,7 @@ public class PostCalc {
     if (counter == 1 && !wentNeg)
       return true;
     else
-      return false;
+      throw new ArithmeticException("Invalid Postfix syntax.");
 
   }
 
