@@ -53,7 +53,7 @@ public class InfixToPostfix {
   }
   
   public String convertToPostFix(){
-	String infix = expression;
+	String infix = expression.trim();
 	StackIn stack = new StackIn();
 	StringBuffer postfix = new StringBuffer(infix.length());
 	char c;
@@ -79,6 +79,7 @@ public class InfixToPostfix {
 		  else if (!stack.isEmpty())
 		    stack.pop();
 	  }
+	  // If the char is an operator
 	  else if (isOperator(c)) {
 	    if (!stack.isEmpty() && getPriority(String.valueOf(c)) <= getPriority(stack.peek())){
 	      postfix.append(stack.pop());
