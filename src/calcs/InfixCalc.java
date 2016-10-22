@@ -52,6 +52,7 @@ public class InfixCalc {
         while (!opStack.isEmpty() && !opStack.peek().equals("(")) {
           postExpression += opStack.pop() + " ";
         }
+        opStack.pop(); // Remove open paren
       } else if (token.equals("(")) {
         opStack.push(token);
       } else if (isOperator(token)) {
@@ -65,7 +66,6 @@ public class InfixCalc {
           while(opStack.peek() != null && getPrecedence(token) <= getPrecedence(opStack.peek())) {
             postExpression += opStack.pop() + " ";
           }
-          opStack.push(token);
         }
       }
     }
@@ -77,8 +77,9 @@ public class InfixCalc {
         postExpression += opStack.pop() + " ";
       }
     }
+    System.out.println(postExpression); // TODO: Remove test statement
     new PostCalc(postExpression);
-    //System.out.println(postExpression); // TODO: Remove test statement
+    
   }
 
 
@@ -87,11 +88,11 @@ public class InfixCalc {
   }
 
   private boolean isOperator(String s) {
-    return s.matches("^[+-/*//]$");
+    return s.trim().matches("^[+-/*//]$");
   }
 
   private int getPrecedence(String op) {
-    switch (op) {
+    switch (op.trim()) {
       case "+":
       case "-":
         return 1;
