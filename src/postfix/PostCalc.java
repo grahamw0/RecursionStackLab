@@ -11,6 +11,10 @@ public class PostCalc {
   private Stack stack;
   private String expression;
 
+  /**
+   * Constructor for class PostCalc
+   * @param expression
+   */
   public PostCalc(String expression) {
     this.expression = expression;
     validate();
