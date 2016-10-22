@@ -1,4 +1,4 @@
-package postfix;
+package calcs;
 
 import java.util.LinkedList;
 
