@@ -66,6 +66,7 @@ public class InfixCalc {
           while(opStack.peek() != null && getPrecedence(token) <= getPrecedence(opStack.peek())) {
             postExpression += opStack.pop() + " ";
           }
+          opStack.push(token);
         }
       }
     }
