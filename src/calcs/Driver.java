@@ -13,9 +13,11 @@ public class Driver {
    * @param args
    */
   public static void main(String[] args) {
-    PostCalc test = new PostCalc("1 2 3 * 5 + +");
-    //InfixCalc test = new InfixCalc("2 * 3 * 1 + 2");
+    //InfixCalc intest = new InfixCalc("(2 * 3) + (3 / 2)");
+    //PostCalc posttest = new PostCalc("2 3 * 3 2 / +");
     
+    //PostfixStatic.run("2 3 +");
+    InfixStatic.run("2 + 3");
     
     /*String testString = "(31 + 234)";
     String[] testArray = testString.split("(((?<=\\()|(?=\\())|((?<=\\))|(?=\\)))|\\s+)");
