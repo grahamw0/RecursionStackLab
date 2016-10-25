@@ -11,7 +11,6 @@ package calcs;
  *
  */
 public class PostCalc {
-  private Stack stack; 
   private String expression; // The input String
   
   /**
