@@ -31,9 +31,9 @@ public class InfixCalc {
    */
   private void fixExpression() {
     expression = expression.trim().replaceAll("\\s+", " "); // Whitespace fix.
-    expression =expression.replaceAll("[)][\\s+]?(?=\\d)", ") * "); // )# -> ) * #
-    expression =expression.replaceAll("(?<=\\d)[\\s+]?[(]", " * ("); // #( -> # * (
-    expression =expression.replaceAll("[)][\\s+]?[(]", ") * ("); // )( -> ) * (
+    expression = expression.replaceAll("[)](?=\\d)", ") * "); // )# -> ) * #
+    expression = expression.replaceAll("(?<=\\d)[(]", " * ("); // #( -> # * (
+    expression = expression.replaceAll("[)][(]", ") * ("); // )( -> ) * (
 
     String fixedExp = "";
     String[] array = expression.split(""); // Going to look at each character
