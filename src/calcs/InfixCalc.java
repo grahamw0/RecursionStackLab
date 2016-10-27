@@ -19,8 +19,37 @@ public class InfixCalc {
   public InfixCalc(String expression) {
     this.expression = expression;
     this.postExpression = "";
+    fixExpression();
     validate();
     compute();
+  }
+
+  /**
+   * Replaces any amount of whitespace with just one space, then turns a paren then a number or a
+   * number than a paren into an explicit multiplicative form. Then does the same for two
+   * parentheses next to each other.
+   */
+  private void fixExpression() {
+    expression = expression.trim().replaceAll("\\s+", " "); // Whitespace fix.
+    expression =expression.replaceAll("[)][\\s+]?(?=\\d)", ") * "); // )# -> ) * #
+    expression =expression.replaceAll("(?<=\\d)[\\s+]?[(]", " * ("); // #( -> # * (
+    expression =expression.replaceAll("[)][\\s+]?[(]", ") * ("); // )( -> ) * (
+
+    String fixedExp = "";
+    String[] array = expression.split(""); // Going to look at each character
+    for (int i = 0; i < expression.length(); i++) {
+      if (i == expression.length() - 1 || array[i].matches("[+-/*]"))
+        fixedExp += array[i] + " ";
+      else if (array[i].matches("[()]"))
+        fixedExp += array[i];
+      else if (array[i].matches("\\d")) {
+        if (array[i + 1].matches("\\d"))
+          fixedExp += array[i];
+        else
+          fixedExp += array[i] + " ";
+      }
+    }
+    expression = fixedExp;
   }
 
   private void validate() {
@@ -39,6 +68,8 @@ public class InfixCalc {
     }
     if (!stack.isEmpty())
       throw new ArithmeticException("Parenthesis Mismatch.");
+
+
   }
 
   private void compute() {
@@ -63,7 +94,7 @@ public class InfixCalc {
         } else if (getPrecedence(token) > getPrecedence(opStack.peek())) {
           opStack.push(token);
         } else {
-          while(opStack.peek() != null && getPrecedence(token) <= getPrecedence(opStack.peek())) {
+          while (opStack.peek() != null && getPrecedence(token) <= getPrecedence(opStack.peek())) {
             postExpression += opStack.pop() + " ";
           }
           opStack.push(token);
@@ -71,17 +102,16 @@ public class InfixCalc {
       }
     }
     while (!opStack.isEmpty()) {
-      //TODO: Determine whether this check is necessary after opStack.pop(); on line 55
-      if(opStack.peek().equals("(")) {
+      // TODO: Determine whether this check is necessary after opStack.pop(); on line 55
+      if (opStack.peek().equals("(")) {
         opStack.pop();
-      }
-      else {
+      } else {
         postExpression += opStack.pop() + " ";
       }
     }
     System.out.println(postExpression); // TODO: Remove test statement
     new PostCalc(postExpression);
-    
+
   }
 
 
