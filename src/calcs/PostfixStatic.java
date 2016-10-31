@@ -4,11 +4,19 @@
 package calcs;
 
 /**
- * @author grahamw0
- *
+ * This is Class Postsix.  It houses the logic to 
+ * take in a postfix expression and compute that 
+ * expression to output an int result. This class is a
+ * static version of PostCalc.  
+ * @author Will Graham, Ryan Godfrey
+ * @version 10/30/2016
  */
 public class PostfixStatic {
   
+  /**
+   * 
+   * @param expression
+   */
   public static void run(String expression) {
     validate(expression);
     compute(expression);
@@ -61,7 +69,7 @@ public class PostfixStatic {
         int result;
         int first = Integer.valueOf(stack.pop()); // Create an int variable equal to the value of the char. 
         int second = Integer.valueOf(stack.pop());
-        switch (array[i]) {
+        switch (array[i]) { // Do the math depending on the operator.
           case "+":
             result = second + first;
             stack.push(Integer.toString(result));

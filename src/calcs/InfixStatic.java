@@ -4,9 +4,16 @@
 package calcs;
 
 /**
- * @author grahamw0
- *
- */
+  * This is class InFixStatic. It is a static version
+  * of the class InFixCalc. It will input a 
+  * regular mathmetic expression and will turn 
+  * that expression into the postfix form.  It will 
+  * first split the expression up so it can deal with
+  * it one token at a time.  It will then validate that the 
+  * expression is valid and compute it to a postfix expression.  
+  * @author Will Graham, Ryan Godfrey
+  * @version 10/30/2016
+  */
 public class InfixStatic {
   /*public InfixCalc(String expression) {
     this.expression = expression;
@@ -15,12 +22,22 @@ public class InfixStatic {
     compute();
   }*/
   
+  /**
+   * 
+   * @param expression
+   */
   public static void run(String expression) {
     validate(expression);
     compute(expression);
   }
   
 
+  /**
+   * The validate() method will check each char and 
+   * check for parenthesis matching.  If the expression
+   * has an unbalanced number of parenthesis, this method
+   * will throw an ArithmeticException.  
+   */
   private static void validate(String expression) {
     Stack stack = new Stack();
     for (char c : expression.toCharArray()) {
@@ -39,6 +56,14 @@ public class InfixStatic {
       throw new ArithmeticException("Parenthesis Mismatch.");
   }
 
+  /**
+   * The compute() method will create the stack
+   * that is used to orginize the postfix expression.  It 
+   * will properly split the expression up and sort the
+   * tokens one at a time.  It will then use the stack to 
+   * build the expression to a postfix form.  
+   *
+   */
   private static void compute(String expression) {
     String postExpression = "";
     Stack opStack = new Stack();
@@ -84,14 +109,34 @@ public class InfixStatic {
   }
 
 
+  /**
+   * The inNumber() method uses a regex expression
+   * to match the char in question to a number.
+   * @param s the element in question
+   * @return a boolean expression if it is a number.  
+   */
   private static boolean isNumber(String s) {
     return s.matches("^-?\\d+$");
   }
 
+  /**
+  * The inOperator() method uses a regex expression
+  * to match the char in question to an operator.
+  * @param s the element in question
+  * @return a boolean expression if it is an operator.  
+  */
   private static boolean isOperator(String s) {
     return s.trim().matches("^[+-/*//]$");
   }
 
+  /**
+   * The getPrecedence() method will assign an int value
+   * to each operator so the compute() method will be able
+   * to check each operator for priority level and push
+   * to the stack or the String result.   
+   * @param op the operator in question
+   * @return the precedence level. 
+   */
   private static int getPrecedence(String op) {
     switch (op.trim()) {
       case "+":

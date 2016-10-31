@@ -5,9 +5,10 @@ package calcs;
 
 /**
  * This is Class PostCalc.  It houses the logic to 
- * take in a postfix expression and compute that 
+ * take in a postfix expression and computes that 
  * expression to output an int result.  
- * @author Will Graham
+ * @author Will Graham, Ryan Godfrey
+ * @version 10/30/2016
  *
  */
 public class PostCalc {
@@ -74,7 +75,7 @@ public class PostCalc {
         int result;
         int first = Integer.valueOf(stack.pop()); // Create an int variable equal to the value of the char. 
         int second = Integer.valueOf(stack.pop());
-        switch (array[i]) {
+        switch (array[i]) { // do the math depending on the operator
           case "+":
             result = second + first;
             stack.push(Integer.toString(result));
