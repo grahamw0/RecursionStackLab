@@ -17,10 +17,10 @@ public class Tour {
       Coord startLocation = new Coord(xStart, yStart);
       Knight knight = new Knight(startLocation, board);
 
-      while (knight.canMove(board))
-        knight.move(board);
+      while (knight.canMove())
+        knight.move();
 
-      if (board.getVisitedPoints() != boardSize * boardSize) {
+      if (board.getSteps() != boardSize * boardSize) {
         System.out.println("RECURSING"); //TODO: Remove test statement
         new Tour(boardSize, xStart, yStart);
       } else {
@@ -34,10 +34,10 @@ public class Tour {
     Coord startLocation = new Coord(xStart, yStart);
     Knight knight = new Knight(startLocation, board);
 
-    while (knight.canMove(board))
-      knight.move(board);
+    while (knight.canMove())
+      knight.move();
 
-    if (board.getVisitedPoints() != boardSize * boardSize) {
+    if (board.getSteps() != boardSize * boardSize) {
       // System.out.println("No Knight's Tour possible.");
       return false;
     } else {
