@@ -3,8 +3,6 @@
  */
 package knightsTour;
 
-import knightsTour.Board;
-import knightsTour.Knight;
 import knightsTour.Coord;
 
 /**
