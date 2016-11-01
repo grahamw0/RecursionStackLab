@@ -29,11 +29,10 @@ public class PostCalc {
 
   /**
    * The validate() method will parse through the input string one char at a time. It will check to
-   * see if each character is valid.
+   * see if each character is valid and if the overall syntax is valid.
    */
   private void validate() {
-    String[] array = expression.trim().split("\\s+"); // Take the input string and split it up into
-                                                      // an array.
+    String[] array = expression.trim().split("\\s+"); // Split on whitespace
     int counter = 0;
     boolean wentNeg = false;
 
@@ -58,24 +57,21 @@ public class PostCalc {
 
   /**
    * The compute() method will be called from the constructor. It will take in the input String and
-   * split it up into an array. It will then iterate through each char and compute the given postfix
-   * expression.
+   * split it up into an array. It will then iterate through each token and compute the given
+   * postfix expression.
    */
-  public void compute() {
-    String[] array = expression.trim().split("\\s+"); // Take the input string and split it up into
-                                                      // an array.
+  private void compute() {
+    String[] array = expression.trim().split("\\s+"); // Split on whitespace
     Stack stack = new Stack();
 
     for (int i = 0; i < array.length; i++) { // Iterate through the array.
-      if (array[i].matches("^-?\\d+$")) { // If the char is a number then push it. Regex for a
-                                          // number.
+      if (array[i].matches("^-?\\d+$")) { // Pos. or neg. number
         stack.push(array[i]);
-      } else { // Use a switch to handle the individual case depending on the operator.
+      } else {
         int result;
-        int first = Integer.valueOf(stack.pop()); // Create an int variable equal to the value of
-                                                  // the char.
+        int first = Integer.valueOf(stack.pop());
         int second = Integer.valueOf(stack.pop());
-        switch (array[i]) { // do the math depending on the operator
+        switch (array[i]) {
           case "+":
             result = second + first;
             stack.push(Integer.toString(result));
@@ -98,6 +94,6 @@ public class PostCalc {
         }
       }
     }
-    System.out.println(stack.pop()); // pop the result
+    System.out.println(stack.pop()); // Display result
   }
 }
