@@ -7,8 +7,8 @@ package knightsTour;
  * @author grahamw0
  *
  */
-public class TourV2 {
-  public TourV2(int boardSize, int xStart, int yStart) {
+public class Tour {
+  public Tour(int boardSize, int xStart, int yStart) {
     if (boardSize <= 4)
       System.out.println("No Knight's Tour possible.");
     else {
@@ -22,7 +22,7 @@ public class TourV2 {
 
       if (board.getVisitedPoints() != boardSize * boardSize) {
         System.out.println("RECURSING"); //TODO: Remove test statement
-        new TourV2(boardSize, xStart, yStart);
+        new Tour(boardSize, xStart, yStart);
       } else {
         System.out.println(board);
       }
