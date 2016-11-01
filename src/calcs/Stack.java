@@ -12,9 +12,9 @@ import java.util.LinkedList;
  *
  */
 public class Stack {
-  private LinkedList<String> list; // The linked list called list
-  private int size; // The size
-  private boolean empty; // Is it empty?
+  private LinkedList<String> list; // The underlying list to be used
+  private int size;
+  private boolean empty;
 
   /**
    * The constructor for class Stack. When an instance of Stack is created this constructor will
@@ -32,34 +32,34 @@ public class Stack {
    * @param c - The string in question
    */
   public void push(String c) {
-    list.push(c); // push onto the stack
-    size++; // increment the size
-    empty = false; // The list is no longer empty
+    list.push(c);
+    size++;
+    emptyCheck();
   }
 
   /**
    * The pop() method will pop the string in question from the stack. If the stack is empty it will
    * throw an IndexOutOfBounds Exception.
    * 
-   * @return The element poped from the stack
+   * @return The element popped from the stack
    */
   public String pop() {
     if (size <= 0) {
       throw new IndexOutOfBoundsException("Error: Popped off an empty stack.");
     }
-    size--; // decrement the size
-    emptyCheck(); // This method resets the field empty to true if the list is now empty.
-    return list.pop(); // returns the popped element
+    size--;
+    emptyCheck();
+    return list.pop();
   }
 
   /**
    * The peek() method will get the element without removing the element from the list. This will
-   * allow access the the element for comparison.
+   * allow access to the element for comparison.
    * 
-   * @return
+   * @return element on the top of stack
    */
   public String peek() {
-    if (size <= 0) // If the list is empty
+    if (size <= 0)
       return null;
     else
       return list.peek(); // Return the element on the stack but do not remove it.
@@ -84,11 +84,11 @@ public class Stack {
   }
 
   /**
-   * The toLinkedList() method will return the list.
+   * The toLinkedList() method will return the underlying list.
    * 
    * @return The LinkedLIst called list
    */
-  public LinkedList toLinkedList() {
+  public LinkedList<String> toLinkedList() {
     return list;
   }
 
