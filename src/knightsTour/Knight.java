@@ -80,7 +80,6 @@ public class Knight {
     return exits;
   }
 
-  // Number of exits with the aformentioned number of minimum exits
   /**
    * Finds the number of points with the minimum number of of exits (implementing the
    * "move to position with lest number of exits" idea of Warnsdorf).
