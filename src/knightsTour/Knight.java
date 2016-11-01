@@ -36,7 +36,6 @@ public class Knight {
    * Moves the knight around the board.
    * 
    * @param location Location to move to
-   * @param board The board to move upon
    */
   private void moveTo(Coord location) {
     this.position = new Coord(location); // Independent copy, no mem-ref link
@@ -46,7 +45,6 @@ public class Knight {
   /**
    * Finds if the Knight has any valid moves
    * 
-   * @param board Board to calculate from
    * @return Whether the Knight has any valid moves or not
    */
   public boolean canMove() {
@@ -56,18 +54,20 @@ public class Knight {
   /**
    * Move the Knight to a position which has the least number of next moves, as described in
    * Warnsdorf's rule.
-   * 
-   * @param board The board on which to move
    */
   public void move() {
     int minExits = minNumberOfExits();
     int posMoves = numberOfHardPoints(minExits);
-    int choice = (int) (posMoves * Math.random() + 1);
+    int choice = (int) (posMoves * Math.random() + 1); // If multiple next moves, randomly choose
     Coord nextMove = newLocation(choice, minExits);
     moveTo(nextMove);
   }
 
-  // Minimum number of exits
+  /**
+   * Minimum number of exits for the current position
+   * 
+   * @return minimum number of exits for the current position
+   */
   private int minNumberOfExits() {
     // Larger than any possible # of exits, ensures a valid # is stored from min()
     int exits = MOVES.length + 1;
@@ -81,6 +81,13 @@ public class Knight {
   }
 
   // Number of exits with the aformentioned number of minimum exits
+  /**
+   * Finds the number of points with the minimum number of of exits (implementing the
+   * "move to position with lest number of exits" idea of Warnsdorf).
+   * 
+   * @param exits the minimum number of exits the next move can have
+   * @return the number of exits that have only the minimum number of exits
+   */
   private int numberOfHardPoints(int exits) {
     int number = 0;
     for (int i = 0; i < MOVES.length; i++) {
@@ -93,6 +100,13 @@ public class Knight {
     return number;
   }
 
+  /**
+   * Determines the new location for the Knight based on Warnsdorff's rule
+   * 
+   * @param which The numbered exit to move to
+   * @param exits The number of exits the new location must have
+   * @return The coordinate of the new location to move to
+   */
   private Coord newLocation(int which, int exits) {
     int number = 0;
     int i = 0;
