@@ -4,12 +4,11 @@
 package calcs;
 
 /**
- * This is class InFixCalc.  It will input a 
- * regular mathmetic expression and will turn 
- * that expression into the postfix form.  It will 
- * first split the expression up so it can deal with
- * it one token at a time.  It will then validate that the 
- * expression is valid and compute it to a postfix expression.  
+ * This is class InFixCalc. It will input a regular mathmetic expression and will turn that
+ * expression into the postfix form. It will first split the expression up so it can deal with it
+ * one token at a time. It will then validate that the expression is valid and compute it to a
+ * postfix expression.
+ * 
  * @author Will Graham, Ryan Godfrey
  * @version 10/30/2016
  */
@@ -18,9 +17,9 @@ public class InfixCalc {
   private String postExpression;
 
   /**
-   * This is the constructor for class InfixCalc. It takes
-   * in the expression and initializes the fields.  It will then
-   * call on the 3 methods that will handle the postfix logic.  
+   * This is the constructor for class InfixCalc. It takes in the expression and initializes the
+   * fields. It will then call on the 3 methods that will handle the postfix logic.
+   * 
    * @param expression the original input
    */
   public InfixCalc(String expression) {
@@ -38,15 +37,15 @@ public class InfixCalc {
    */
   private void fixExpression() {
     expression = expression.trim().replaceAll("\\s+", " "); // Whitespace fix.
-    expression = expression.replaceAll("[)](?=\\d)", ") * "); // )# -> ) * # 
-    expression = expression.replaceAll("(?<=\\d)[(]", " * ("); // #( -> # * ( 
+    expression = expression.replaceAll("[)](?=\\d)", ") * "); // )# -> ) * #
+    expression = expression.replaceAll("(?<=\\d)[(]", " * ("); // #( -> # * (
     expression = expression.replaceAll("[)][(]", ") * ("); // )( -> ) * (
 
     String fixedExp = "";
     String[] array = expression.split(""); // Going to look at each character
     for (int i = 0; i < expression.length(); i++) {
-      if (i == expression.length() - 1 || array[i].matches("[+-/*]")) 
-        fixedExp += array[i] + " "; 
+      if (i == expression.length() - 1 || array[i].matches("[+-/*]"))
+        fixedExp += array[i] + " ";
       else if (array[i].matches("[()]"))
         fixedExp += array[i];
       else if (array[i].matches("\\d")) {
@@ -58,15 +57,14 @@ public class InfixCalc {
     }
     expression = fixedExp;
   }
-  
+
   /**
-   * The validate() method will check each char and 
-   * check for parenthesis matching.  If the expression
-   * has an unbalanced number of parenthesis, this method
-   * will throw an ArithmeticException.  
+   * The validate() method will check each char and check for parenthesis matching. If the
+   * expression has an unbalanced number of parenthesis, this method will throw an
+   * ArithmeticException.
    */
   private void validate() {
-    Stack stack = new Stack(); 
+    Stack stack = new Stack();
     for (char c : expression.toCharArray()) { // iterate through the expression
       if (c == '(') {
         stack.push("(");
@@ -86,11 +84,9 @@ public class InfixCalc {
   }
 
   /**
-   * The compute() method will create the stack
-   * that is used to orginize the postfix expression.  It 
-   * will properly split the expression up and sort the
-   * tokens one at a time.  It will then use the stack to 
-   * build the expression to a postfix form.  
+   * The compute() method will create the stack that is used to organize the postfix expression. It
+   * will properly split the expression up and sort the tokens one at a time. It will then use the
+   * stack to build the expression to a postfix form.
    *
    */
   private void compute() {
@@ -123,47 +119,41 @@ public class InfixCalc {
       }
     }
     while (!opStack.isEmpty()) {
-      // TODO: Determine whether this check is necessary after opStack.pop(); on line 55
-      if (opStack.peek().equals("(")) {
-        opStack.pop();
-      } else {
-        postExpression += opStack.pop() + " ";
-      }
+      postExpression += opStack.pop() + " ";
     }
-    System.out.println(postExpression); // TODO: Remove test statement
     new PostCalc(postExpression);
 
   }
 
 
   /**
-   * The inNumber() method uses a regex expression
-   * to match the char in question to a number.
+   * The inNumber() method uses a regex expression to match the char in question to a number.
+   * 
    * @param s the element in question
-   * @return a boolean expression if it is a number.  
+   * @return a boolean expression if it is a number.
    */
   private boolean isNumber(String s) {
     return s.matches("^-?\\d+$");
   }
 
-  
+
   /**
-  * The inOperator() method uses a regex expression
-  * to match the char in question to an operator.
-  * @param s the element in question
-  * @return a boolean expression if it is an operator.  
-  */
+   * The inOperator() method uses a regex expression to match the char in question to an operator.
+   * 
+   * @param s the element in question
+   * @return a boolean expression if it is an operator.
+   */
   private boolean isOperator(String s) {
     return s.trim().matches("^[+-/*//]$");
   }
 
   /**
-   * The getPrecedence() method will assign an int value
-   * to each operator so the compute() method will be able
-   * to check each operator for priority level and push
-   * to the stack or the String result.   
+   * The getPrecedence() method will assign an int value to each operator so the compute() method
+   * will be able to check each operator for priority level and push to the stack or the String
+   * result.
+   * 
    * @param op the operator in question
-   * @return the precedence level. 
+   * @return the precedence level.
    */
   private int getPrecedence(String op) {
     switch (op.trim()) {
