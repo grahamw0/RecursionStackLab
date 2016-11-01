@@ -1,9 +1,8 @@
-/**
- * Driver for both types of calculators, with examples of usage.
- */
 package calcs;
 
 /**
+ * Driver for both types of calculators, with examples of usage.
+ * 
  * @author Ryan Godfrey, Will Graham
  *
  */
