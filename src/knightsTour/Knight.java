@@ -10,6 +10,7 @@ public class Knight {
   private final int[][] MOVES = // Ordered pairs of valid moves
       {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
   private Coord position; // Current position on board
+  private Board board;
 
   /**
    * Constructor.
@@ -18,7 +19,8 @@ public class Knight {
    * @param board Board to be placed on
    */
   public Knight(Coord location, Board board) {
-    moveTo(location, board);
+    this.board = board;
+    moveTo(location);
   }
 
   /**
@@ -36,7 +38,7 @@ public class Knight {
    * @param location Location to move to
    * @param board The board to move upon
    */
-  private void moveTo(Coord location, Board board) {
+  private void moveTo(Coord location) {
     this.position = new Coord(location); // Independent copy, no mem-ref link
     board.placeKnight(position);
   }
@@ -47,7 +49,7 @@ public class Knight {
    * @param board Board to calculate from
    * @return Whether the Knight has any valid moves or not
    */
-  public boolean canMove(Board board) {
+  public boolean canMove() {
     return board.numberOfExits(this, position) > 0;
   }
 
@@ -57,50 +59,49 @@ public class Knight {
    * 
    * @param board The board on which to move
    */
-  public void move(Board board) {
-    int minExits = minNumberOfExits(board);
-    int posMoves = numberOfHardPoints(minExits, board);
+  public void move() {
+    int minExits = minNumberOfExits();
+    int posMoves = numberOfHardPoints(minExits);
     int choice = (int) (posMoves * Math.random() + 1);
-    Coord nextMove = newLocation(choice, board, minExits);
-    moveTo(nextMove, board);
+    Coord nextMove = newLocation(choice, minExits);
+    moveTo(nextMove);
   }
 
   // Minimum number of exits
-  private int minNumberOfExits(Board board) {
+  private int minNumberOfExits() {
     // Larger than any possible # of exits, ensures a valid # is stored from min()
     int exits = MOVES.length + 1;
     for (int i = 0; i < MOVES.length; i++) {
       Coord next = position.moveBy(getMoves()[i]);
-      if (board.isInBoard(next)/* next.isInBoard(board) */ && !board.isVisited(next)) {
-        exits =
-            Math.min(exits, board.numberOfExits(this, next)/* next.numberOfExits(this, board) */);
+      if (board.isInBoard(next) && !board.isVisited(next)) {
+        exits = Math.min(exits, board.numberOfExits(this, next));
       }
     }
     return exits;
   }
 
   // Number of exits with the aformentioned number of minimum exits
-  private int numberOfHardPoints(int exits, Board board) {
+  private int numberOfHardPoints(int exits) {
     int number = 0;
     for (int i = 0; i < MOVES.length; i++) {
       Coord next = position.moveBy(getMoves()[i]);
       if (board.isInBoard(next) && !board.isVisited(next)
-          && /* next.numberOfExits(this, board) */board.numberOfExits(this, next) == exits) {
+          && board.numberOfExits(this, next) == exits) {
         number++;
       }
     }
     return number;
   }
 
-  private Coord newLocation(int which, Board board, int exits) {
+  private Coord newLocation(int which, int exits) {
     int number = 0;
     int i = 0;
     Coord next = new Coord();
 
     while (number < which) {
       next = position.moveBy(getMoves()[i]);
-      if (board.isInBoard(next) && !board.isVisited(next) &&
-          /* next.numberOfExits(this, board) */board.numberOfExits(this, next) == exits) {
+      if (board.isInBoard(next) && !board.isVisited(next)
+          && board.numberOfExits(this, next) == exits) {
         number++;
       }
       i++;
