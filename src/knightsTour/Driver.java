@@ -8,6 +8,6 @@ package knightsTour;
  */
 public class Driver {
   public static void main(String[] args) {
-    new Tour(10, 5, 4); // Example call
+    new Tour(15, 14, 4); // Example call
   }
 }
